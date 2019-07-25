@@ -48,7 +48,58 @@ void TailInsert(LNode *&L)
     r->next = NULL;
     return;
 }
-
+//按序号查找结点
+LNode *GetNode(LNode *L,int i)
+{
+    int count=1;
+    LNode *p=L->next;
+    if (i==0)
+    {
+        return L;
+    }
+    if (i<1)
+    {
+        return NULL;
+    }
+    while(p&&count<i)
+    {
+        p=p->next;
+        count++;
+    }
+    if (p==NULL)//当输入i值超出结点总数
+        printf("没有第%d个结点\n",i);
+    else 
+        printf("第%d个结点为：%d\n",i,p->data);
+    return p;
+}
+//按值查找结点
+LNode *LocateElem(LNode *L, int elem)
+{
+    LNode *p=L->next;
+    int i=1;//结点序号
+    while(p!=NULL&&p->data!=elem)//从第一个结点开始按值查找，p!=NULL要么空链表，要么找不到该值
+    {
+        p=p->next;
+        i++;
+    }
+    if(p!=NULL&&p->data==elem)
+        printf("值为%d的结点序号为：%d\n",elem,i);
+    else
+        printf("没有值为%d的结点\n",elem);
+    // printf("%d",p->data);
+    return p;
+}
+//在第i个位置上插入新结点
+void InsertNode(LNode *&L,int i,int data)
+{
+    LNode *p,*new_Node;//p为插入位置前一个结点
+    p=GetNode(L,i-1);
+    new_Node=(LNode *)malloc(sizeof(LNode));
+    new_Node->next=p->next;
+    new_Node->data=data;
+    p->next=new_Node;
+    return;
+}
 //遍历链表
 void TravelList(LNode *L)
 {
@@ -66,8 +117,12 @@ void TravelList(LNode *L)
 int main()
 {
     LNode *L = NULL;
-    // HeadInsert(L);
-    TailInsert(L);
+    // HeadInsert(L);//头插法
+    TailInsert(L);//尾插法
+    TravelList(L);//遍历链表
+    // GetNode(L,3);//按序号查找
+    // LocateElem(L,7);//按值查找
+    InsertNode(L,3,88);//插入新的结点
     TravelList(L);
     return 0;
 }
