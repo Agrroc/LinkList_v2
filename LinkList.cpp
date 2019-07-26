@@ -153,6 +153,58 @@ void HInsertDList(DNode *&D)
     }
     return;
 }
+void TInsertDList(DNode *&D)
+{
+    D = (DNode *)malloc(sizeof(DNode));
+    D->next = D->prior = NULL;
+    int data;
+    DNode *p = NULL, *s = D;
+    printf("请输入待插入的数据，以9999结尾：\n");
+    scanf("%d", &data);
+    while (data != 9999)
+    {
+        p = (DNode *)malloc(sizeof(DNode));
+        p->data = data;
+        p->next = s->next;
+        if (s->next != NULL)
+            s->next->prior = p;
+        p->prior = s;
+        s->next = p;
+        s = s->next;
+        scanf("%d", &data);
+    }
+    return;
+}
+//按序号查找双链表结点
+DNode *GetDNode(DNode *D,int i)
+{
+    int count = 1;
+    DNode *p = D->next;
+    if (i == 0)
+    {
+        return D;
+    }
+    if (i < 1)
+    {
+        return NULL;
+    }
+    while (p && count < i)
+    {
+        p = p->next;
+        count++;
+    }
+    if (p == NULL) //当输入i值超出结点总数
+        printf("没有第%d个结点\n", i);
+    else
+        printf("第%d个结点为：%d\n", i, p->data);
+    return p;
+}
+//双链表插入结点
+void HInsert(DNode *&L,int i,int data)
+{
+    DNode *new_DNode;
+    
+}
 //遍历双链表
 void TravelDList(DNode *D)
 {
@@ -181,7 +233,9 @@ int main()
     // TravelList(L);
     // DeletNode(L, 2); //删除结点
     // TravelList(L);
-    HInsertDList(D); //头插法建立双链表
+    // HInsertDList(D); //头插法建立双链表
+    TInsertDList(D);
     TravelDList(D);
+    GetDNode(D,2);
     return 0;
 }
