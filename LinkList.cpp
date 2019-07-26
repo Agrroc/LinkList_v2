@@ -135,7 +135,7 @@ void TravelList(LNode *L)
 void HInsertDList(DNode *&D)
 {
     D = (DNode *)malloc(sizeof(DNode));
-    D->prior = D->next=NULL;
+    D->prior = D->next = NULL;
     int data;
     DNode *p = NULL; //p为待插入结点
     printf("请输入待插入的数据，以9999结尾：\n");
@@ -145,7 +145,7 @@ void HInsertDList(DNode *&D)
         p = (DNode *)malloc(sizeof(DNode));
         p->data = data;
         p->next = D->next;
-        if(D->next!=NULL)//当前没有一个结点时，没有后继结点，就没办法找前驱
+        if (D->next != NULL) //当前没有一个结点时，没有后继结点，就没办法找前驱
             D->next->prior = p;
         p->prior = D;
         D->next = p;
